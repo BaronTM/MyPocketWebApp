@@ -33,6 +33,11 @@ $("document").ready(function () {
         $("#log_form").hide(500);
     });
 
+    $("#logging_button").click(function () {
+        $("#log_form").submit();
+        alert("submited");
+    });
+
 
 
 

@@ -21,5 +21,5 @@ dependencies {
 	compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.4.4.Final'
 	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
 	compile("org.springframework.boot:spring-boot-starter-security")
-	compile group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.9.RELEASE'
+	compile group: 'org.thymeleaf', name: 'thymeleaf-spring5'
 }

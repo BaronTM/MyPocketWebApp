@@ -11,14 +11,14 @@
 <body>
     <div id="container">
         <header>
-            <div id="logo_container"><a href="index.html"><img src="pic/logo.png" alt="logo"></a></div>
+            <div id="logo_container"><a href="login.html"><img src="pic/logo.png" alt="logo"></a></div>
         </header>
         <div id="middle_flow">
             <div id="start_buttons_container">
                 <div id="log_form">
-                    <form action="#">
-                        <input type="text" required="required" placeholder="Login"><br/>
-                        <input type="password" required="required" placeholder="Hasło"><br/>
+                    <form action="/wallet" method="post">
+                        <input type="text" required="required" placeholder="Login" name="username"><br/>
+                        <input type="password" required="required" placeholder="Hasło" name="password"><br/>
                         <div class="log_button" id="logging_button">Loguj</div>
                     </form>
 
