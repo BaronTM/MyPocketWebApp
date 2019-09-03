@@ -1,0 +1,25 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.7.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+}
+
+group = 'pl.pocket'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.7.RELEASE'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compileOnly 'org.projectlombok:lombok:1.18.8'
+	annotationProcessor 'org.projectlombok:lombok:1.18.8'
+	compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.4.4.Final'
+	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
+	compile("org.springframework.boot:spring-boot-starter-security")
+	compile group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.9.RELEASE'
+}

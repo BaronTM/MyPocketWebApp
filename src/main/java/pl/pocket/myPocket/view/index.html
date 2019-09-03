@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Pocket App</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+    <script src="libs/jquery_prod.js"></script>
+    <script type="text/javascript" src="js/script.js" defer></script>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <div id="logo_container"><a href="index.html"><img src="pic/logo.png" alt="logo"></a></div>
+        </header>
+        <div id="middle_flow">
+            <div id="start_buttons_container">
+                <div id="log_form">
+                    <form action="#">
+                        <input type="text" required="required" placeholder="Login"><br/>
+                        <input type="password" required="required" placeholder="Hasło"><br/>
+                        <div class="log_button" id="logging_button">Loguj</div>
+                    </form>
+                </div>
+                <div id="register_form">
+                    <form action="#">
+                        <input type="text" required="required" placeholder="Login"><br/>
+                        <input type="password" required="required" placeholder="Hasło"><br/>
+                        <input type="password" required="required" placeholder="Potwierdź hasło"><br/>
+                        <div class="log_button" id="registration_button">Rejestruj</div>
+                    </form>
+                </div>
+                <div class="log_button" id="log_but">Logowanie</div>
+                <div class="log_button" id="reg_but">Rejestracja</button>
+            </div>
+        </div>
+        <footer>
+        </footer>
+    </div>
+</body>
+</html>
