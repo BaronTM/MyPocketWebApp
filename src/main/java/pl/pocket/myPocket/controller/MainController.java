@@ -7,8 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController {
 
-    @RequestMapping("/wallet")
-    public String wallet() {
-        return "hello.html";
+    @RequestMapping("/app")
+    public String app() {
+        return "app/app.html";
     }
+
+    @RequestMapping("/login")
+    public String loginPage() {
+        return "login.html";
+    }
+
+
 }

@@ -5,7 +5,7 @@
     <title>My Pocket App</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
-    <script src="libs/jquery_prod.js"></script>
+    <script type="text/javascript" src="libs/jquery_prod.js"></script>
     <script type="text/javascript" src="js/script.js" defer></script>
 </head>
 <body>
@@ -15,17 +15,16 @@
         </header>
         <div id="middle_flow">
             <div id="start_buttons_container">
-                <div id="log_form">
-                    <form action="/wallet" method="post">
-                        <input type="text" required="required" placeholder="Login" name="username"><br/>
+                <div id="log_form_div">
+                    <form id="log_form" th:action="@{/login}" method="post" name="f">
+                        <input type="text" required="required" placeholder="Login" name="username" autocomplete="off"><br/>
                         <input type="password" required="required" placeholder="Hasło" name="password"><br/>
                         <div class="log_button" id="logging_button">Loguj</div>
                     </form>
-
                 </div>
-                <div id="register_form">
-                    <form action="#">
-                        <input type="text" required="required" placeholder="Login"><br/>
+                <div id="register_form_div">
+                    <form action="#" id="register_form">
+                        <input type="text" required="required" placeholder="Login" autocomplete="off"><br/>
                         <input type="password" required="required" placeholder="Hasło"><br/>
                         <input type="password" required="required" placeholder="Potwierdź hasło"><br/>
                         <div class="log_button" id="registration_button">Rejestruj</div>

@@ -12,8 +12,8 @@ $("document").ready(function () {
             $("#reg_but").removeClass("show_button");
         }, 700);
 
-        $("#log_form").show(500);
-        $("#register_form").hide(500);
+        $("#log_form_div").show(500);
+        $("#register_form_div").hide(500);
     });
 
     $("#reg_but").click(function () {
@@ -29,13 +29,16 @@ $("document").ready(function () {
         }, 700);
 
 
-        $("#register_form").show(500);
-        $("#log_form").hide(500);
+        $("#register_form_div").show(500);
+        $("#log_form_div").hide(500);
     });
 
     $("#logging_button").click(function () {
         $("#log_form").submit();
-        alert("submited");
+    });
+
+    $("#log_out_but").click(function () {
+        $("form[name='logout_form']").submit();
     });
 
 
