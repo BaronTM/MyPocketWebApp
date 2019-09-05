@@ -15,9 +15,14 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebMvc
 public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer{
+
+    @Autowired
+    DataSource dataSource;
 
     @Override
     public void configure(HttpSecurity security) throws Exception {
@@ -39,6 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     public void securityUser(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("ernest").password("{noop}1234").roles("ADMIN", "USER")
+                .and()
+                .withUser("Adam").password("{noop}Kowalski").roles("ADMIN", "USER")
                 .and()
                 .withUser("user").password("{noop}user2").roles("USER");
     }

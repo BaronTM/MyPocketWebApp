@@ -18,9 +18,6 @@ import java.util.Map;
 @ComponentScan(basePackages = "pl.pocket.myPocket")
 public class MainConfig {
 
-    @Autowired
-    private Session session;
-
     @PostConstruct
     public void init(){
 //        User user = new User("Adam", "Kowalski");

@@ -41,7 +41,4 @@ $("document").ready(function () {
         $("form[name='logout_form']").submit();
     });
 
-
-
-
 });

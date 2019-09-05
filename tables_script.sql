@@ -15,6 +15,14 @@ CREATE TABLE user (
     constraint FK_WALLET_IN_USER foreign key (id_wallet) references wallet (id_wallet)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE role (
+	id_role int(20) NOT NULL auto_increment,
+    id_user int(15) default NULL,
+    role_name varchar(100) default NULL,
+    primary key(id_role),
+    constraint FK_ROLE_ID_USER foreign key (id_user) references user (id_user)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE account (
 	id_account int(20) NOT NULL AUTO_INCREMENT,
     id_wallet int(15) default NULL,

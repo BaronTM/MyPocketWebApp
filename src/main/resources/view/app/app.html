@@ -11,13 +11,13 @@
 <body>
     <div id="container">
         <form name="logout_form" th:action="@{/logout}" method="post">
-            <div id="log_out_but"><a href="app.html"><img src="../pic/logout.png" alt="logo"></a></div>
+            <div id="log_out_but"><img src="../pic/logout.png" alt="logo"></div>
         </form>
         <header>
             <div id="logo_container"><a href="app.html"><img src="../pic/logo.png" alt="logo"></a></div>
         </header>
         <div id="middle_flow">
-            Witaj użytkowniku na stronie głównej aplikacji
+            <p>Witaj <p th:text="${user.userName}"></p> na stronie głównej aplikacji</p>
         </div>
         <footer>
         </footer>
