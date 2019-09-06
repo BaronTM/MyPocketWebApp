@@ -2,15 +2,21 @@ package pl.pocket.myPocket.controller;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import pl.pocket.myPocket.model.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class UserService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Transactional
     public User getUserFromRepository(String userName) {
@@ -30,6 +36,11 @@ public class UserService {
         return user;
     }
 
+    @Transactional
+    public void persistUser(User user) {
+        entityManager.persist(user);
+    }
+
 
     private SessionFactory getSessionFactory() {
         org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
@@ -44,5 +55,7 @@ public class UserService {
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         return sessionFactory;
     }
+
+
 
 }

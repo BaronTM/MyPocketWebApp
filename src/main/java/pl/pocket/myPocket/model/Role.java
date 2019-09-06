@@ -28,4 +28,9 @@ public class Role {
     @Setter
     @Column(name = "role_name")
     private String roleName;
+
+    public Role(User user, String roleName) {
+        this.user = user;
+        this.roleName = roleName;
+    }
 }

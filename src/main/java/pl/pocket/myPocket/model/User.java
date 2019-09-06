@@ -35,7 +35,7 @@ public class User {
     @Getter
     @Setter
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<String> roles;
+    private List<Role> roles;
 
     @Getter
     @Setter
@@ -47,5 +47,7 @@ public class User {
         this.userName = userName;
         this.password = password;
         this.wallet = new Wallet(this);
+        this.roles = new ArrayList<>();
+        roles.add(new Role(this, "USER"));
     }
 }
