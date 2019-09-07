@@ -6,6 +6,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import pl.pocket.myPocket.controller.repository.UserRepository;
+import pl.pocket.myPocket.model.RegistrationForm;
 import pl.pocket.myPocket.model.Session;
 import pl.pocket.myPocket.model.User;
 
@@ -18,9 +22,8 @@ public class MainController {
     @Autowired
     private Session session;
 
-
-    @RequestMapping("/app")
-    public String app(Model model) {
+    @RequestMapping("/loggedin")
+    public String loggedin(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String userName;
         if (principal instanceof UserDetails) {
@@ -28,11 +31,16 @@ public class MainController {
         } else {
             userName = principal.toString();
         }
-
         User userFromRepository = userRepository.getUserFromRepository(userName);
         session.setUser(userFromRepository);
-        if (userFromRepository == null) return "/login?error=nouser";
-        model.addAttribute("user", session.getUser());
+        return app(model);
+    }
+
+    @RequestMapping("/app")
+    public String app(Model model) {
+        User user = session.getUser();
+        if (user == null) return "/login?error=nouser";
+        model.addAttribute("user", user);
         return "app/app.html";
     }
 
@@ -41,5 +49,12 @@ public class MainController {
         return "login.html";
     }
 
+    @RequestMapping(value = "/registration")
+    public String register(RegistrationForm registrationForm) {
+        System.out.println(registrationForm.getUserName());
+        System.out.println(registrationForm.getPassword());
+        System.out.println(registrationForm.getPasswordConfirmation());
+        return "login.html";
+    }
 
 }

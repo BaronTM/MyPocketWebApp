@@ -23,10 +23,10 @@
                     </form>
                 </div>
                 <div id="register_form_div">
-                    <form action="#" id="register_form">
-                        <input type="text" required="required" placeholder="Login" autocomplete="off"><br/>
-                        <input type="password" required="required" placeholder="Hasło"><br/>
-                        <input type="password" required="required" placeholder="Potwierdź hasło"><br/>
+                    <form th:action="@{/registration}" th:object="${registrationForm}" id="registration_form" method="post" th:method="post">
+                        <input type="text" required="required" placeholder="Login" autocomplete="off" name="login" th:field="*{userName}"><br/>
+                        <input type="password" required="required" placeholder="Hasło" name="password" th:field="*{password}"><br/>
+                        <input type="password" required="required" placeholder="Potwierdź hasło" name="passwordConfirmation" th:field="*passwordConfirmation"><br/>
                         <div class="log_button" id="registration_button">Rejestruj</div>
                     </form>
                 </div>

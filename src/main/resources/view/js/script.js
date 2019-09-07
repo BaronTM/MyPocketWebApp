@@ -37,8 +37,12 @@ $("document").ready(function () {
         $("#log_form").submit();
     });
 
+    $("#registration_button").click(function () {
+        $("#register_form").submit();
+    });
+
     $("#log_out_but").click(function () {
-        $("form[name='logout_form']").submit();
+        $("form[name='registration_form']").submit();
     });
 
 });

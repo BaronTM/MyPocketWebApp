@@ -1,19 +1,15 @@
 package pl.pocket.myPocket.controller;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import pl.pocket.myPocket.model.*;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.pocket.myPocket.controller.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 @ComponentScan(basePackages = "pl.pocket.myPocket")
@@ -22,6 +18,11 @@ public class MainConfig {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Bean
+    public PasswordEncoder noopEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
 
     @PostConstruct
     public void init(){
