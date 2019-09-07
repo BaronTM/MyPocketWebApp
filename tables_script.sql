@@ -1,5 +1,14 @@
 use mypocketdbrepository;
 
+DROP TABLE IF EXISTS revenue;
+DROP TABLE IF EXISTS expense;
+DROP TABLE IF EXISTS revenue_category;
+DROP TABLE IF EXISTS expense_category;
+DROP TABLE IF EXISTS account;
+DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS wallet;
+
 
 CREATE TABLE wallet (
 	id_wallet int(15) NOT NULL AUTO_INCREMENT,
@@ -8,9 +17,10 @@ CREATE TABLE wallet (
 
 CREATE TABLE user (
 	id_user int(15) NOT NULL auto_increment,
-    user_name varchar(256) default NULL,
+    user_name varchar(256) default NULL unique,
     user_password varchar(256) default NULL,
     id_wallet int(15) default NULL,
+    enabled bool default null,
     primary key(id_user),
     constraint FK_WALLET_IN_USER foreign key (id_wallet) references wallet (id_wallet)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;

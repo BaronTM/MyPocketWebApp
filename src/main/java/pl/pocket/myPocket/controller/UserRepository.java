@@ -2,7 +2,9 @@ package pl.pocket.myPocket.controller;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import pl.pocket.myPocket.model.*;
 
@@ -12,8 +14,8 @@ import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
-public class UserService {
+@Repository
+public class UserRepository {
 
     @PersistenceContext
     private EntityManager entityManager;

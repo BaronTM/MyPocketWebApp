@@ -43,11 +43,17 @@ public class User {
     @JoinColumn(name = "id_wallet")
     private Wallet wallet;
 
+    @Getter
+    @Setter
+    @Column(name = "enabled")
+    private boolean enabled;
+
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
         this.wallet = new Wallet(this);
         this.roles = new ArrayList<>();
+        this.enabled = true;
         roles.add(new Role(this, "USER"));
     }
 }

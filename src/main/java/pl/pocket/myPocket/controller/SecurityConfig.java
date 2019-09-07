@@ -1,19 +1,13 @@
 package pl.pocket.myPocket.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.sql.DataSource;
 
@@ -22,12 +16,12 @@ import javax.sql.DataSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer{
 
     @Autowired
-    DataSource dataSource;
+    private DataSource dataSource;
 
     @Override
     public void configure(HttpSecurity security) throws Exception {
         security.authorizeRequests()
-                .antMatchers("/app/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/app/**").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers("/css/**", "/js/**", "/libs/**", "/pic/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -42,12 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
     @Autowired
     public void securityUser(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("ernest").password("{noop}1234").roles("ADMIN", "USER")
-                .and()
-                .withUser("Adam").password("{noop}Kowalski").roles("ADMIN", "USER")
-                .and()
-                .withUser("user").password("{noop}user2").roles("USER");
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery("SELECT user_name, user_password, enabled FROM user WHERE user_name=?")
+                .authoritiesByUsernameQuery("SELECT u.user_name, r.role_name FROM user as u, role as r WHERE u.id_user = r.id_user AND u.user_name=?");
     }
 
     @Override

@@ -5,7 +5,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.pocket.myPocket.model.Session;
 import pl.pocket.myPocket.model.User;
@@ -14,7 +13,7 @@ import pl.pocket.myPocket.model.User;
 public class MainController {
 
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
 
     @Autowired
     private Session session;
@@ -30,7 +29,7 @@ public class MainController {
             userName = principal.toString();
         }
 
-        User userFromRepository = userService.getUserFromRepository(userName);
+        User userFromRepository = userRepository.getUserFromRepository(userName);
         session.setUser(userFromRepository);
         if (userFromRepository == null) return "/login?error=nouser";
         model.addAttribute("user", session.getUser());
