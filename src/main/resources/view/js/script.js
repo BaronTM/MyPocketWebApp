@@ -38,7 +38,7 @@ $("document").ready(function () {
     });
 
     $("#registration_button").click(function () {
-        $("#register_form").submit();
+        $("#registration_form").submit();
     });
 
     $("#log_out_but").click(function () {

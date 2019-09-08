@@ -45,7 +45,9 @@ public class MainController {
     }
 
     @RequestMapping("/login")
-    public String loginPage() {
+    public String loginPage(Model model) {
+        RegistrationForm registrationForm = new RegistrationForm();
+        model.addAttribute("registrationForm", registrationForm);
         return "login.html";
     }
 
