@@ -63,6 +63,7 @@ header
     outline: none;
     color: darkslategray;
     text-shadow: 0 0 2px black;
+    background-color: white;
 }
 
 #register_form_div
@@ -195,7 +196,18 @@ header
     filter: drop-shadow(0px 0px 10px rgb(3, 166, 120));
 }
 
-
+#information
+{
+    position: absolute;
+    margin-top: -50px;
+    width: 100%;
+    font-size: 20px;
+    font-family: Verdana, sans-serif;
+    text-shadow: 0px 0px 4px red;
+    text-align: center;
+    display: none;
+    user-select: none;
+}
 
 
 footer

@@ -15,18 +15,19 @@
         </header>
         <div id="middle_flow">
             <div id="start_buttons_container">
+                <div id="information"></div>
                 <div id="log_form_div">
                     <form id="log_form" th:action="@{/login}" method="post" name="f">
-                        <input type="text" required="required" placeholder="Login" name="username" autocomplete="off"><br/>
-                        <input type="password" required="required" placeholder="Hasło" name="password"><br/>
+                        <input id="login_username_input" type="text" required="required" placeholder="Login" name="username" autocomplete="off"><br/>
+                        <input id="login_password_input" type="password" required="required" placeholder="Hasło" name="password"><br/>
                         <div class="log_button" id="logging_button">Loguj</div>
                     </form>
                 </div>
                 <div id="register_form_div">
                     <form th:action="@{/registration}" th:object="${registrationForm}" id="registration_form" method="post" th:method="post">
-                        <input type="text" required="required" placeholder="Login" autocomplete="off" name="login" th:field="*{userName}"><br/>
-                        <input type="password" required="required" placeholder="Hasło" name="password" th:field="*{password}"><br/>
-                        <input type="password" required="required" placeholder="Potwierdź hasło" name="passwordConfirmation" th:field="*{passwordConfirmation}"><br/>
+                        <input id="registration_login_input" type="text" required="required" placeholder="Login" autocomplete="off" name="registration_login" th:field="*{userName}"><br/>
+                        <input id="registration_password_input" type="password" required="required" placeholder="Hasło" name="registration_password" th:field="*{password}"><br/>
+                        <input id="registration_password_confirmation_input" type="password" required="required" placeholder="Potwierdź hasło" name="registration_password_confirmation" th:field="*{passwordConfirmation}"><br/>
                         <div class="log_button" id="registration_button">Rejestruj</div>
                     </form>
                 </div>
@@ -38,4 +39,16 @@
         </footer>
     </div>
 </body>
+<script>
+    var message = "[[${registrationPassed}]]";
+    if (message.length > 0) {
+        if (message == "yes") {
+            $("#information").html("<span style='text-shadow: 0px 0px 4px forestgreen;'>Zarejestowano pomyślnie.</span>");
+            $("#information").show();
+        } else if (message == "no") {
+            $("#information").html("<span>Rejestracja nie powiodła się.</span>");
+            $("#information").show();
+        }
+    }
+</script>
 </html>

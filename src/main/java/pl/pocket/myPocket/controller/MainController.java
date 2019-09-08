@@ -1,17 +1,22 @@
 package pl.pocket.myPocket.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import pl.pocket.myPocket.controller.repository.UserRepository;
 import pl.pocket.myPocket.model.RegistrationForm;
 import pl.pocket.myPocket.model.Session;
 import pl.pocket.myPocket.model.User;
+
+import javax.transaction.Transactional;
 
 @Controller
 public class MainController {
@@ -21,6 +26,9 @@ public class MainController {
 
     @Autowired
     private Session session;
+
+    @Autowired
+    public PasswordEncoder passwordEncoder;
 
     @RequestMapping("/loggedin")
     public String loggedin(Model model) {
@@ -52,11 +60,28 @@ public class MainController {
     }
 
     @RequestMapping(value = "/registration")
-    public String register(RegistrationForm registrationForm) {
-        System.out.println(registrationForm.getUserName());
-        System.out.println(registrationForm.getPassword());
-        System.out.println(registrationForm.getPasswordConfirmation());
-        return "login.html";
+    @Transactional
+    public String register(RegistrationForm registrationForm, Model model) {
+        boolean userExists = userRepository.checkIfUserExists(registrationForm.getUserName());
+        boolean passwordLength = registrationForm.getPassword().length() >= 8;
+        boolean passwordConfirmed = registrationForm.getPassword().equals(registrationForm.getPasswordConfirmation());
+        if (!userExists && passwordLength && passwordConfirmed) {
+            User user = new User(registrationForm.getUserName(), passwordEncoder.encode(registrationForm.getPassword()));
+            userRepository.persistUser(user);
+            model.addAttribute("registrationPassed", "yes");
+            return "/login";
+        } else {
+            model.addAttribute("registrationPassed", "no");
+            return "login.html";
+        }
+    }
+
+    @RequestMapping(value = "/isusernameenabled")
+    @ResponseBody
+    public String isUsernameEnabled(@RequestParam(name = "username") String userName) {
+        boolean exists = userRepository.checkIfUserExists(userName);
+        if (exists) return "exists";
+        else return "free";
     }
 
 }
