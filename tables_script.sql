@@ -18,7 +18,7 @@ CREATE TABLE wallet (
 CREATE TABLE user (
 	id_user int(15) NOT NULL auto_increment,
     user_name varchar(256) default NULL unique,
-    user_password varchar(256) default NULL,
+    user_password varchar(512) default NULL,
     id_wallet int(15) default NULL,
     enabled bool default null,
     primary key(id_user),

@@ -29,7 +29,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public void persistUser(User user) {
+    public void persistUser(User user) throws Exception {
         entityManager.persist(user);
     }
 

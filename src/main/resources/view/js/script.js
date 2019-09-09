@@ -30,6 +30,10 @@ $("document").ready(function () {
         $("#log_but").css("display", "block");
         $("#log_but").addClass("show_button");
 
+        $("#registration_login_input").val("");
+        $("#registration_password_input").val("");
+        $("#registration_password_confirmation_input").val("");
+
         setTimeout(function () {
             $("#reg_but").css("display", "none");
             $("#reg_but").removeClass("dissapear_button");

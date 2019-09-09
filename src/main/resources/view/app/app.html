@@ -5,6 +5,7 @@
     <title>My Pocket App</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <script type="text/javascript" src="../libs/jquery_prod.js"></script>
     <script type="text/javascript" src="../js/script.js" defer></script>
 </head>
@@ -17,7 +18,19 @@
             <div id="logo_container"><a href="app.html"><img src="../pic/logo.png" alt="logo"></a></div>
         </header>
         <div id="middle_flow">
-            <p>Witaj <span th:value="${user.userName}"></span> na stronie głównej aplikacji</p>
+            <div id="main_app_content">
+                <div id="upper_menu_bar">
+                    <div id="option_button_container" class="button_container">
+                        <div id="option_button" class="option_button">option</div>
+                    </div>
+                    <div id="date_button_container" class="button_container">
+                        <div id="date_button" class="option_button">month</div>
+                    </div>
+                    <div id="account_button_container" class="button_container">
+                        <div id="account_button" class="option_button">santander consument bank</div>
+                    </div>
+                </div>
+            </div>
         </div>
         <footer>
         </footer>

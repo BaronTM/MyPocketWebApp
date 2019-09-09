@@ -66,10 +66,15 @@ public class MainController {
         boolean passwordLength = registrationForm.getPassword().length() >= 8;
         boolean passwordConfirmed = registrationForm.getPassword().equals(registrationForm.getPasswordConfirmation());
         if (!userExists && passwordLength && passwordConfirmed) {
-            User user = new User(registrationForm.getUserName(), passwordEncoder.encode(registrationForm.getPassword()));
-            userRepository.persistUser(user);
-            model.addAttribute("registrationPassed", "yes");
-            return "/login";
+            try {
+                User user = new User(registrationForm.getUserName(), passwordEncoder.encode(registrationForm.getPassword()));
+                userRepository.persistUser(user);
+                model.addAttribute("registrationPassed", "yes");
+                return "/login";
+            } catch (Exception e) {
+                model.addAttribute("registrationPassed", "no");
+                return "login.html";
+            }
         } else {
             model.addAttribute("registrationPassed", "no");
             return "login.html";
