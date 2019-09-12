@@ -96,7 +96,6 @@ $("document").ready(function () {
     $("#registration_password_input").focusout(validPasswords);
 
     $("#registration_password_confirmation_input").focusout(validPasswords);
-
 });
 
 function validPasswords() {
