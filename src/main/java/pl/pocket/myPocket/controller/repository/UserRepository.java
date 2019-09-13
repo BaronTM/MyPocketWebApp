@@ -18,6 +18,7 @@ public class UserRepository {
     public User getUserFromRepository(String userName) {
         Query query = entityManager.createQuery("FROM User WHERE userName=:un");
         query.setParameter("un", userName);
+        query.
         User user = (User) query.getSingleResult();
         return user;
     }
