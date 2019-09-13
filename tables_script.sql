@@ -45,6 +45,7 @@ CREATE TABLE revenue_category (
 	id_revenue_category int(25) NOT NULL auto_increment,
     id_wallet int(15) default NULL,
     revenue_category_name varchar(50) default null,
+    color varchar(20) default NULL,
     primary key (id_revenue_category),
     constraint FK_WALLET_IN_REVENUE_CATEGORY foreign key (id_wallet) references wallet(id_wallet)
 )ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
@@ -53,6 +54,7 @@ CREATE TABLE expense_category (
 	id_expense_category int(25) NOT NULL auto_increment,
     id_wallet int(15) default NULL,
     expense_category_name varchar(50) default NULL,
+    color varchar(20) default NULL,
     primary key(id_expense_category),
     constraint FK_WALLET_IN_EXPENSE_CATEGORY foreign key (id_wallet) references wallet(id_wallet)
 )ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;

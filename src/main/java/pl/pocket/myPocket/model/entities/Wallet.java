@@ -1,10 +1,12 @@
-package pl.pocket.myPocket.model;
+package pl.pocket.myPocket.model.entities;
 
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -60,5 +62,22 @@ public class Wallet {
     public void addRevenueCategory(String categoryName) {
         RevenueCategory revenueCategory = new RevenueCategory(categoryName, this);
         revenueList.add(revenueCategory);
+    }
+
+    public Map<ExpenseCategory, Double> getExpencesMap() {
+        Map<ExpenseCategory, Double> expencesMap = new HashMap<>();
+        for (Account a : accountList) {
+            for (Expense e : a.getExpenses()) {
+                Double val;
+                if (expencesMap.containsKey(e.getExpenseCategory())) {
+                    val = expencesMap.get(e.getExpenseCategory());
+                } else {
+                    val = new Double(0);
+                }
+                val += e.getValue();
+                expencesMap.put(e.getExpenseCategory(), val);
+            }
+        }
+        return expencesMap;
     }
 }

@@ -1,29 +1,27 @@
-package pl.pocket.myPocket.model;
+package pl.pocket.myPocket.model.entities;
 
 import lombok.*;
-import org.springframework.stereotype.Component;
+import pl.pocket.myPocket.model.Defaults;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "expense_category")
-public class ExpenseCategory {
+@Table(name = "revenue_category")
+public class RevenueCategory {
 
     @Id
-    @Column(name = "id_expense_category")
+    @Column(name = "id_revenue_category")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
-    private Integer idExpenseCategory;
+    private Integer idRevenueCategoty;
 
     @Getter
     @Setter
-    @Column(name = "expense_category_name")
+    @Column(name = "revenue_category_name")
     private String categoryName;
 
     @Getter
@@ -32,9 +30,15 @@ public class ExpenseCategory {
     @JoinColumn(name = "id_wallet")
     private Wallet wallet;
 
-    public ExpenseCategory(String categoryName, Wallet wallet) {
+    @Getter
+    @Setter
+    @Column(name = "color")
+    private String color;
+
+    public RevenueCategory(String categoryName, Wallet wallet) {
         this.categoryName = categoryName;
         this.wallet = wallet;
+        this.color = Defaults.getRandomColor();
     }
 
 }

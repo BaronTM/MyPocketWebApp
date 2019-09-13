@@ -1,22 +1,31 @@
 package pl.pocket.myPocket.controller;
 
+import com.google.gson.Gson;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.pocket.myPocket.controller.repository.UserRepository;
-import pl.pocket.myPocket.model.RegistrationForm;
+import pl.pocket.myPocket.model.entities.ExpenseCategory;
+import pl.pocket.myPocket.model.entities.RegistrationForm;
 import pl.pocket.myPocket.model.Session;
-import pl.pocket.myPocket.model.User;
+import pl.pocket.myPocket.model.entities.User;
+import pl.pocket.myPocket.model.json.Data;
+import pl.pocket.myPocket.model.json.Datasets;
 
 import javax.transaction.Transactional;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class MainController {
@@ -87,6 +96,35 @@ public class MainController {
         boolean exists = userRepository.checkIfUserExists(userName);
         if (exists) return "exists";
         else return "free";
+    }
+
+    @RequestMapping(value = "/getwallet")
+    @ResponseBody
+    public String getWallet() {
+        User user = session.getUser();
+        if (user == null) return "";
+        Map<ExpenseCategory, Double> expencesMap = user.getWallet().getExpencesMap();
+
+        Data data = new Data();
+        Datasets datasets = new Datasets();
+
+        Collection<Double> values = expencesMap.values();
+        Double[] doubles = values.toArray(new Double[values.size()]);
+        double[] doublePrimitives = ArrayUtils.toPrimitive(doubles);
+        datasets.setData(doublePrimitives);
+
+        List<String> colorsList = expencesMap.keySet().stream().map(e -> e.getColor()).collect(Collectors.toList());
+        String[] colors = colorsList.toArray(new String[colorsList.size()]);
+        datasets.setBackgroundColor(colors);
+
+        data.setDatasets(datasets);
+
+        List<String> labelsList = expencesMap.keySet().stream().map(e -> e.getCategoryName()).collect(Collectors.toList());
+        String[] labels = labelsList.toArray(new String[labelsList.size()]);
+        data.setLabels(labels);
+
+        String json = new Gson().toJson(data);
+        return json;
     }
 
 }

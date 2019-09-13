@@ -222,7 +222,7 @@ footer
 #main_app_content
 {
     width: 80vw;
-    height: 60vh;
+    height: 70vh;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -266,7 +266,7 @@ footer
 
 #account_button_container
 {
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
 }
 
 #date_button_container
@@ -276,7 +276,7 @@ footer
 
 #option_button_container
 {
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
 }
 
 .button_container
@@ -284,12 +284,28 @@ footer
     flex: 1;
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    /* border: 5px solid red; */
 }
 
-#piechart_3d
+#piechart_container
 {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
     justify-self: center;
     align-self: center;
     width: 100%;
     height: 100%;
 }
+
+#piechart
+{
+    min-width: 0;
+    min-height: 0;
+}
+
+

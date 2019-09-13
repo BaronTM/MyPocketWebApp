@@ -1,6 +1,7 @@
-package pl.pocket.myPocket.model;
+package pl.pocket.myPocket.model.entities;
 
 import lombok.*;
+import pl.pocket.myPocket.model.Defaults;
 
 import javax.persistence.*;
 
@@ -8,19 +9,19 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "revenue_category")
-public class RevenueCategory {
+@Table(name = "expense_category")
+public class ExpenseCategory {
 
     @Id
-    @Column(name = "id_revenue_category")
+    @Column(name = "id_expense_category")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
-    private Integer idRevenueCategoty;
+    private Integer idExpenseCategory;
 
     @Getter
     @Setter
-    @Column(name = "revenue_category_name")
+    @Column(name = "expense_category_name")
     private String categoryName;
 
     @Getter
@@ -29,9 +30,15 @@ public class RevenueCategory {
     @JoinColumn(name = "id_wallet")
     private Wallet wallet;
 
-    public RevenueCategory(String categoryName, Wallet wallet) {
+    @Getter
+    @Setter
+    @Column(name = "color")
+    private String color;
+
+    public ExpenseCategory(String categoryName, Wallet wallet) {
         this.categoryName = categoryName;
         this.wallet = wallet;
+        this.color = Defaults.getRandomColor();
     }
 
 }
