@@ -29,7 +29,9 @@ header
 #logo_container img
 {
     width: 80vw;
-    max-width: 1000px;
+    width: auto;
+    max-width: 90vw;
+    max-height: 20vh;
 }
 
 #logo_container img:hover
@@ -290,5 +292,4 @@ footer
     align-self: center;
     width: 100%;
     height: 100%;
-    background-color: red;
 }
