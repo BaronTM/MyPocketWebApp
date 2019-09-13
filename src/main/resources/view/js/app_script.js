@@ -5,7 +5,9 @@ $("document").ready(function () {
     google.charts.setOnLoadCallback(drawChart);
 
 
-
+    $(window).resize(function(){
+        drawChart();
+    });
 });
 
 
@@ -20,10 +22,8 @@ function drawChart() {
     ]);
 
     var options = {
-        title: 'My Daily Activities',
         is3D: true,
-        backgroundColor: { fill:'transparent' },
-        legend: {position: none},
+        backgroundColor: { fill:'transparent' }
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
