@@ -306,6 +306,13 @@ footer
 {
     min-width: 0;
     min-height: 0;
+    height: 100%;
+}
+
+#piechart canvas
+{
+    max-width: 100%;
+    max-height: 100%;
 }
 
 

@@ -1,4 +1,4 @@
-package pl.pocket.myPocket.model.entities;
+package pl.pocket.myPocket.model;
 
 import lombok.*;
 

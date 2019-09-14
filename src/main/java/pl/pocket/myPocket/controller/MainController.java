@@ -13,15 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.pocket.myPocket.controller.repository.UserRepository;
 import pl.pocket.myPocket.model.entities.ExpenseCategory;
-import pl.pocket.myPocket.model.entities.RegistrationForm;
+import pl.pocket.myPocket.model.RegistrationForm;
 import pl.pocket.myPocket.model.Session;
 import pl.pocket.myPocket.model.entities.User;
-import pl.pocket.myPocket.model.json.Data;
-import pl.pocket.myPocket.model.json.Datasets;
 
 import javax.transaction.Transactional;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -105,25 +101,23 @@ public class MainController {
         if (user == null) return "";
         Map<ExpenseCategory, Double> expencesMap = user.getWallet().getExpencesMap();
 
-        Data data = new Data();
-        Datasets datasets = new Datasets();
-
         Collection<Double> values = expencesMap.values();
         Double[] doubles = values.toArray(new Double[values.size()]);
         double[] doublePrimitives = ArrayUtils.toPrimitive(doubles);
-        datasets.setData(doublePrimitives);
 
         List<String> colorsList = expencesMap.keySet().stream().map(e -> e.getColor()).collect(Collectors.toList());
         String[] colors = colorsList.toArray(new String[colorsList.size()]);
-        datasets.setBackgroundColor(colors);
-
-        data.setDatasets(datasets);
 
         List<String> labelsList = expencesMap.keySet().stream().map(e -> e.getCategoryName()).collect(Collectors.toList());
         String[] labels = labelsList.toArray(new String[labelsList.size()]);
-        data.setLabels(labels);
+
+        Object[] data = new Object[3];
+        data[0] = doublePrimitives;
+        data[1] = colors;
+        data[2] = labels;
 
         String json = new Gson().toJson(data);
+        System.out.println(json);
         return json;
     }
 
