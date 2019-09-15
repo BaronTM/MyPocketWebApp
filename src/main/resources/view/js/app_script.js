@@ -45,6 +45,10 @@ function updateChart(dataArray) {
             ],
             labels: dataArray[2],
         },
+        config: {
+            cutoutPercentage: 1,
+            circumference: 3,
+        },
         options: {
             responsive: true,
             responsiveAnimationDuration: 1000,
@@ -55,7 +59,14 @@ function updateChart(dataArray) {
                 labels: {
                     boxWidth: 30,
                     fontSize: 14,
-                }
+                    fontStyle: 'italic',
+                },
+                onHover: function(event, legendItem) {
+                    document.getElementById("chart_canvas").style.cursor = 'pointer';
+                },
+                onLeave: function(event, legendItem) {
+                    document.getElementById("chart_canvas").style.cursor = '';
+                },                
             },
             layout: {
                 padding: {
@@ -107,9 +118,18 @@ function updateChart(dataArray) {
                         let dataset = chartData.datasets[0];
                         let value = dataset.data[tooltipItems[0].index];
                         let percent = Math.round((value / dataset["_meta"][0]['total']) * 100)
-                        return "(" + percent + ' %)';
-                    },
-                }
+                        return "      (" + percent + ' %)';
+                    }
+                },
+                titleFontSize: 20,
+                titleFontColor: '#b7d8ed',
+                titleMarginBottom: 10,
+                bodyFontSize: 15,
+                bodyFontStyle: 'italic',
+                footerFontStyle: 'italic',
+                caretSize: 10,
+                displayColors: true,
+                backgroundColor: 'rgba(0, 0, 0, 0.7)',
               },
         },
     
