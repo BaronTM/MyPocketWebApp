@@ -52,7 +52,10 @@ function updateChart(dataArray) {
             // aspectRatio: 1,
             legend: {
                 position: 'right',
-
+                labels: {
+                    boxWidth: 30,
+                    fontSize: 14,
+                }
             },
             layout: {
                 padding: {
@@ -93,14 +96,18 @@ function updateChart(dataArray) {
             },
             tooltips: {
                 callbacks: {
-                    beforeLabel: function(tooltipItem, chartData) {
-                        return chartData.labels[tooltipItem.index].toUpperCase();
+                    title: function(tooltipItems, chartData) {
+                        let str = chartData.labels[tooltipItems[0].index].toUpperCase();
+                        return str;
                     },
                     label: function(tooltipItem, chartData) {
-                        return chartData.labels[tooltipItem.index].toUpperCase();
+                        return chartData.datasets[0].data[tooltipItem.index] + " zł";
                     },
-                    afterLabel: function(tooltipItem, chartData) {
-                        return "after";
+                    footer: function(tooltipItems, chartData) {
+                        let dataset = chartData.datasets[0];
+                        let value = dataset.data[tooltipItems[0].index];
+                        let percent = Math.round((value / dataset["_meta"][0]['total']) * 100)
+                        return "(" + percent + ' %)';
                     },
                 }
               },
