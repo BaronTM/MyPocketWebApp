@@ -64,26 +64,27 @@ function updateChart(dataArray) {
             },
             plugins: {
                 datalabels: {
-                    color: '#FFF',
+                    color: '#000',
                     anchor: 'end',
                     align: 'start',
-                    offset: -50,
+                    offset: -30,
                     borderWidth: 5,
-                    borderColor: '#03a678',
-                    borderRadius: 20,
-                    backgroundColor: '#03a678',
-                    formatter: function(value, context) {
-                        if (context.active) {
-                            return context.chart.data.labels[context.dataIndex] + " " + value + ' zł';
-                        }
-                        return value + ' zł';
+                    borderColor: function(context) {
+                        return context.dataset.backgroundColor;
                     },
-                    opacity: 0.7,
+                    borderRadius: 20,
+                    backgroundColor: '#FFF',
+                    formatter: function(value, context) {
+                        var dataset = context.chart.data.datasets[0];
+                        var percent = Math.round((value / dataset["_meta"][0]['total']) * 100)
+                        return percent + ' %';
+                    },
+                    opacity: 1,
                     padding: {
-                        top: 4,
-                        bottom: 4,
-                        right: 10,
-                        left: 10,
+                        top: 8,
+                        bottom: 8,
+                        right: 20,
+                        left: 20,
                     },
                     font: {
                         weight: 'bold',
@@ -92,11 +93,17 @@ function updateChart(dataArray) {
             },
             tooltips: {
                 callbacks: {
-                  label: function(tooltipItem, chartData) {
-                    return chartData.labels[tooltipItem.index].toUpperCase();
-                  }
+                    beforeLabel: function(tooltipItem, chartData) {
+                        return chartData.labels[tooltipItem.index].toUpperCase();
+                    },
+                    label: function(tooltipItem, chartData) {
+                        return chartData.labels[tooltipItem.index].toUpperCase();
+                    },
+                    afterLabel: function(tooltipItem, chartData) {
+                        return "after";
+                    },
                 }
-              }
+              },
         },
     
     });
