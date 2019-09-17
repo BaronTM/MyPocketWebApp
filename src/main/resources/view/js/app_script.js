@@ -34,6 +34,8 @@ $("document").ready(function () {
 });
 
 function updateChart(dataArray) {
+
+    
     var chart = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -55,18 +57,21 @@ function updateChart(dataArray) {
             maintainAspectRatio: true,
             // aspectRatio: 1,
             legend: {
+                right: 'middle',
                 position: 'right',
                 labels: {
                     boxWidth: 30,
                     fontSize: 14,
+                    padding: 20,
                     fontStyle: 'italic',
+                    usePointStyle : true,
                 },
                 onHover: function(event, legendItem) {
                     document.getElementById("chart_canvas").style.cursor = 'pointer';
                 },
                 onLeave: function(event, legendItem) {
                     document.getElementById("chart_canvas").style.cursor = '';
-                },                
+                },                            
             },
             layout: {
                 padding: {
@@ -132,7 +137,8 @@ function updateChart(dataArray) {
                 backgroundColor: 'rgba(0, 0, 0, 0.7)',
               },
         },
-    
     });
+
+
 }
 
