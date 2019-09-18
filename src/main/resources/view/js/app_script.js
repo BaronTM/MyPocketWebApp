@@ -1,5 +1,7 @@
 
 var ctx = null;
+var expensesData;
+var revenuesData;
 
 $("document").ready(function () {
 
@@ -9,17 +11,24 @@ $("document").ready(function () {
 
     ctx = document.getElementById("chart_canvas").getContext('2d');
 
-    // $.ajax({
-    //     url: "/getwallet",
-    //     success: function(response) {
-    //         var jsonData = JSON.parse(response);
-    //         updateChart(jsonData);
-    //     }
-    // });    
+    $.ajax({
+        url: "/getrevenues",
+        success: function(response) {
+            revenuesData = JSON.parse(response);
+        }
+    }); 
 
-    var str = '[[5842.0,4301.0,933.08,2684.44],["#75d89e","#ea24a3","#c4d647","#fa06ec"],["samochod","dom","kino","jedzenie"]]';
-    var jsonData = JSON.parse(str);
-    updateChart(jsonData);
+    $.ajax({
+        url: "/getexpences",
+        success: function(response) {
+            expensesData = JSON.parse(response);
+            updateChart(expensesData);
+        }
+    });          
+
+    // var str = '[[5842.0,4301.0,933.08,2684.44],["#75d89e","#ea24a3","#c4d647","#fa06ec"],["samochod","dom","kino","jedzenie"]]';
+    // expensesData = JSON.parse(str);
+    // updateChart(expensesData);
 
     $("#chart_canvas").width($("#piechart_container").height() * 2);
     $("#chart_canvas").height($("#piechart_container").height() * 2);
@@ -34,7 +43,6 @@ $("document").ready(function () {
 });
 
 function updateChart(dataArray) {
-    
     var chart = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -111,7 +119,11 @@ function updateChart(dataArray) {
                 doughnutlabel: {
                     labels: [
                       {
-                        text: 'przychod',
+                        text: function(chart) {
+                            let sum = revenuesData[0].reduce((a, b) => a + b, 0);
+                            let res = Math.round((sum) * 100) / 100;
+                            return res + " zł";
+                        },
                         font: {
                           size: '50'
                         },
@@ -119,12 +131,10 @@ function updateChart(dataArray) {
                       },
                       {
                         text: function(chart) {
-                            let arr = chart.data.datasets[0].data;
-                            let sum = 0;
-                            for (var i = 0; i < arr.length; i++) {
-                                sum += arr[i];
-                            }
-                            return sum + " zł";
+                            let dataset = chart.data.datasets[0];
+                            let sum = dataset["_meta"][0]['total'];
+                            let res = Math.round((sum) * 100) / 100;
+                            return res + " zł";
                         },
                         font: {
                           size: '50'
@@ -132,7 +142,13 @@ function updateChart(dataArray) {
                         color: '#BB1414'
                       },
                       {
-                        text: "saldo",
+                        text: function(chart) {
+                            let dataset = chart.data.datasets[0];
+                            let sumExpences = dataset["_meta"][0]['total'];
+                            let sumRevenues = revenuesData[0].reduce((a, b) => a + b, 0);
+                            let res = Math.round((sumRevenues - sumExpences) * 100) / 100;
+                            return res + " zł";
+                        },
                         font: {
                           size: '60'
                         },

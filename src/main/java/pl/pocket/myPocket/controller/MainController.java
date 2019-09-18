@@ -15,6 +15,7 @@ import pl.pocket.myPocket.controller.repository.UserRepository;
 import pl.pocket.myPocket.model.entities.ExpenseCategory;
 import pl.pocket.myPocket.model.RegistrationForm;
 import pl.pocket.myPocket.model.Session;
+import pl.pocket.myPocket.model.entities.RevenueCategory;
 import pl.pocket.myPocket.model.entities.User;
 
 import javax.transaction.Transactional;
@@ -94,9 +95,9 @@ public class MainController {
         else return "free";
     }
 
-    @RequestMapping(value = "/getwallet")
+    @RequestMapping(value = "/getexpences")
     @ResponseBody
-    public String getWallet() {
+    public String getExpences() {
         User user = session.getUser();
         if (user == null) return "";
         Map<ExpenseCategory, Double> expencesMap = user.getWallet().getExpencesMap();
@@ -121,4 +122,30 @@ public class MainController {
         return json;
     }
 
+    @RequestMapping(value = "/getrevenues")
+    @ResponseBody
+    public String getRevenues() {
+        User user = session.getUser();
+        if (user == null) return "";
+        Map<RevenueCategory, Double> revenueMap = user.getWallet().getRevenueMap();
+
+        Collection<Double> values = revenueMap.values();
+        Double[] doubles = values.toArray(new Double[values.size()]);
+        double[] doublePrimitives = ArrayUtils.toPrimitive(doubles);
+
+        List<String> colorsList = revenueMap.keySet().stream().map(e -> e.getColor()).collect(Collectors.toList());
+        String[] colors = colorsList.toArray(new String[colorsList.size()]);
+
+        List<String> labelsList = revenueMap.keySet().stream().map(e -> e.getCategoryName()).collect(Collectors.toList());
+        String[] labels = labelsList.toArray(new String[labelsList.size()]);
+
+        Object[] data = new Object[3];
+        data[0] = doublePrimitives;
+        data[1] = colors;
+        data[2] = labels;
+
+        String json = new Gson().toJson(data);
+        System.out.println(json);
+        return json;
+    }
 }

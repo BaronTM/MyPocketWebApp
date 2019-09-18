@@ -85,4 +85,21 @@ public class Wallet {
         }
         return expencesMap;
     }
+
+    public Map<RevenueCategory, Double> getRevenueMap() {
+        Map<RevenueCategory, Double> revenueMap = new HashMap<>();
+        for (Account a : accountList) {
+            for (Revenue r : a.getRevenues()) {
+                Double val;
+                if (revenueMap.containsKey(r.getRevenueCategory())) {
+                    val = revenueMap.get(r.getRevenueCategory());
+                } else {
+                    val = new Double(0);
+                }
+                val += r.getValue();
+                revenueMap.put(r.getRevenueCategory(), val);
+            }
+        }
+        return revenueMap;
+    }
 }
