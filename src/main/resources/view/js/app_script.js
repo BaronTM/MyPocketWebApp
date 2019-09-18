@@ -34,7 +34,6 @@ $("document").ready(function () {
 });
 
 function updateChart(dataArray) {
-
     
     var chart = new Chart(ctx, {
         type: 'doughnut',
@@ -53,7 +52,7 @@ function updateChart(dataArray) {
         },
         options: {
             responsive: true,
-            responsiveAnimationDuration: 1000,
+            responsiveAnimationDuration: 100,
             maintainAspectRatio: true,
             // aspectRatio: 1,
             legend: {
@@ -71,7 +70,7 @@ function updateChart(dataArray) {
                 },
                 onLeave: function(event, legendItem) {
                     document.getElementById("chart_canvas").style.cursor = '';
-                },                            
+                },
             },
             layout: {
                 padding: {
@@ -108,6 +107,38 @@ function updateChart(dataArray) {
                     font: {
                         weight: 'bold',
                     },
+                },
+                doughnutlabel: {
+                    labels: [
+                      {
+                        text: 'przychod',
+                        font: {
+                          size: '50'
+                        },
+                        color: "#00BB14",
+                      },
+                      {
+                        text: function(chart) {
+                            let arr = chart.data.datasets[0].data;
+                            let sum = 0;
+                            for (var i = 0; i < arr.length; i++) {
+                                sum += arr[i];
+                            }
+                            return sum + " zł";
+                        },
+                        font: {
+                          size: '50'
+                        },
+                        color: '#BB1414'
+                      },
+                      {
+                        text: "saldo",
+                        font: {
+                          size: '60'
+                        },
+                        color: '#1414BB'
+                      }
+                    ]
                 },
             },
             tooltips: {
