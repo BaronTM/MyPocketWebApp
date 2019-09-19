@@ -2,6 +2,7 @@
 var ctx = null;
 var expensesData;
 var revenuesData;
+var chart;
 
 $("document").ready(function () {
 
@@ -11,24 +12,27 @@ $("document").ready(function () {
 
     ctx = document.getElementById("chart_canvas").getContext('2d');
 
-    $.ajax({
-        url: "/getrevenues",
-        success: function(response) {
-            revenuesData = JSON.parse(response);
-        }
-    }); 
+    // $.ajax({
+    //     url: "/getrevenues",
+    //     success: function(response) {
+    //         revenuesData = JSON.parse(response);
+    //     }
+    // }); 
 
-    $.ajax({
-        url: "/getexpences",
-        success: function(response) {
-            expensesData = JSON.parse(response);
-            updateChart(expensesData);
-        }
-    });          
+    // $.ajax({
+    //     url: "/getexpences",
+    //     success: function(response) {
+    //         expensesData = JSON.parse(response);
+    //         updateChart(expensesData);
+    //     }
+    // });          
 
-    // var str = '[[5842.0,4301.0,933.08,2684.44],["#75d89e","#ea24a3","#c4d647","#fa06ec"],["samochod","dom","kino","jedzenie"]]';
-    // expensesData = JSON.parse(str);
-    // updateChart(expensesData);
+    var str = '[[5842.0,4301.0,933.08,2684.44],["#75d89e","#ea24a3","#c4d647","#fa06ec"],["samochod","dom","kino","jedzenie"]]';
+    expensesData = JSON.parse(str);
+    updateChart(expensesData);
+
+    var str2 = '[[30000],["#75d89e"],["pko"]]';
+    revenuesData = JSON.parse(str2);
 
     $("#chart_canvas").width($("#piechart_container").height() * 2);
     $("#chart_canvas").height($("#piechart_container").height() * 2);
@@ -43,7 +47,10 @@ $("document").ready(function () {
 });
 
 function updateChart(dataArray) {
-    var chart = new Chart(ctx, {
+
+    var defaultLegendClickCallback = Chart.defaults.global.legend.onClick;
+
+    chart = new Chart(ctx, {
         type: 'doughnut',
         data: {
             datasets: [
@@ -64,8 +71,8 @@ function updateChart(dataArray) {
             maintainAspectRatio: true,
             // aspectRatio: 1,
             legend: {
-                right: 'middle',
                 position: 'right',
+                align: 'end',
                 labels: {
                     boxWidth: 30,
                     fontSize: 14,
@@ -79,6 +86,24 @@ function updateChart(dataArray) {
                 onLeave: function(event, legendItem) {
                     document.getElementById("chart_canvas").style.cursor = '';
                 },
+            },
+            hover: {
+                onHover: function(e, el) {
+                  $("#chart_canvas").css("cursor", el[0] ? "pointer" : "default");
+                }
+            },
+            onClick: (evt, item) => {
+                let activePoints = chart.getElementsAtEvent(evt);
+                if (activePoints.length > 0) {
+                    let index = activePoints[0]._index;
+                    let label = activePoints[0]._chart.data.labels[index];
+                    let value = activePoints[0]._chart.data.datasets[0].data[index];
+                    
+                    // place for adding new expecse form 
+
+                    // alert(label + ":  " + value);
+                    // alert(Object.keys(activePoints[0]));
+                }
             },
             layout: {
                 padding: {
