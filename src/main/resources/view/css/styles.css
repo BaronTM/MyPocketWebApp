@@ -316,3 +316,57 @@ footer
     max-width: 100%;
     max-height: 100%;
 }
+
+#formContainer
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: radial-gradient(ellipse at center, rgba(200,200,200,1) 0%, rgba(242,242,242,0.9) 100%);
+    /* background: radial-gradient(ellipse at center, rgba(3,167,121,1) 0%, rgba(242,242,242,0.9) 100%); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 15;
+    /* display: none; */
+}  
+
+#newExpenseFormContainer
+{
+    opacity: 1;
+    background-color: rgba(101,191,166,1);
+    box-shadow: 0px 0px 30px rgba(101,191,166,1),
+                0px 0px 60px rgba(101,191,166,1),
+                0px 0px 90px rgba(101,191,166,1),
+                0px 0px 120px rgba(101,191,166,1),
+                0px 0px 150px rgba(101,191,166,1),
+                0px 0px 180px rgba(101,191,166,1),
+                0px 0px 210px rgba(101,191,166,1),
+                0px 0px 240px rgba(101,191,166,1);
+    border-radius: 20px;
+    padding: 50px;
+    position: relative;
+}
+
+#newExpenseFormContainer img
+{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 40px;
+    height: 40px;
+    opacity: 0.7;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#newExpenseFormContainer img:hover
+{
+    opacity: 1;
+    transition: 0.2s;
+    filter: drop-shadow(0px 0px 10px red);
+}
+
+
