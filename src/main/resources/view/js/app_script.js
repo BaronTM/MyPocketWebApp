@@ -66,6 +66,40 @@ $("document").ready(function () {
         }
     });
 
+    $("#new_expense_form .selected_item").click(function() {
+        var width = $(this).css("width");
+        $("#new_expense_form .option_list").css("width", width);
+        $(this).css({
+            "border-bottom-left-radius": 0,
+            "border-bottom-right-radius": 0,
+            "background-color": "rgb(2, 114, 226)",
+        });
+        $("#new_expense_form .option_list").show();
+    });
+    
+    $("#new_expense_form .option_list").mouseleave(function() {
+        $("#new_expense_form .selected_item").css({
+            "border-bottom-left-radius": "10px",
+            "border-bottom-right-radius": "10px",
+            "background-color": "dodgerblue",
+        });
+        $("#new_expense_form .option_list").hide();
+    });
+
+    $("#new_expense_form .option_list li").click(function() {
+        let value = $(this).text();
+        $("#new_expense_form .selected_item").text(value);
+        $("#new_expense_form .selected_item").css({
+            "border-bottom-left-radius": "10px",
+            "border-bottom-right-radius": "10px",
+            "background-color": "dodgerblue",
+        });
+        $("#new_expense_form .option_list").hide();
+    });
+
+
+    
+
 
 
 });
