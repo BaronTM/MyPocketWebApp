@@ -253,9 +253,9 @@ footer
     cursor: pointer;
     opacity: 0.7;
     transition: 0.3s;
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
-    font-style: italic;
+    font-family: 'Lobster', 'Roboto', sans-serif;
+    /* font-weight: bold; */
+    /* font-style: italic; */
     font-size: 1.5em;
 }
 
@@ -367,6 +367,23 @@ footer
     opacity: 1;
     transition: 0.2s;
     filter: drop-shadow(0px 0px 10px red);
+}
+
+#new_expense_form div
+{
+    padding: 15px;
+    margin: 0;
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Lobster', 'Roboto', sans-serif;
+}
+
+#new_expense_form div a
+{
+    font-size: 30px;
+    color: white;
 }
 
 

@@ -43,17 +43,26 @@ $("document").ready(function () {
         $("#chart_canvas").height($("#piechart_container").height() * 2);
     });
 
+    $("#new_expense_form_value").keydown(function(e){
+        let before = $("#new_expense_form_value").val();
+        let after = before + e.key;
+        let regex = new RegExp("^([0-9]+(\\.||,||((\\.[0-9]{1,2})||(,[0-9]{1,2})))?)?$");
+        // alert(e.keyCode);
+        if (e.keyCode < 48) {
+        } else if (regex.test(after)) {
+        } else {
+            e.preventDefault();
+        }
+    });
+
+
     $("#new_expense_form_value").keyup(function(e){
         let after = $("#new_expense_form_value").val();
-        let test = "d+";
-        let regex = new RegExp("^([0-9]+(.||,||((.[0-9]{1,2})||(,[0-9]{1,2})))?)?$"); 
-        
-        if (regex.test(after)) {
+        let regex = new RegExp("^([0-9]+(.||,||((.[0-9]{1,2})||(,[0-9]{1,2})))?)?$");
+        if (regex.test(after) || after==null) {
             $("#new_expense_form_value").css("background-color", "limegreen");
-            validatorValue = after;
-        } else {        
+        } else {
             $("#new_expense_form_value").css("background-color", "orangered");
-            $(this).val(validatorValue);
         }
     });
 
