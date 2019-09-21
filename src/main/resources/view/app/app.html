@@ -8,9 +8,9 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script type="text/javascript" src="../libs/jquery_prod.js"></script>
-    <script type="text/javascript" src="../js/Chart.min.js"></script>
-    <script type="text/javascript" src="../js/chartjs-plugin-datalabels.js"></script>
-    <script type="text/javascript" src="../js/chartjs-plugin-doughnutlabel.min.js"></script>
+    <script type="text/javascript" src="../libs/Chart.min.js"></script>
+    <script type="text/javascript" src="../libs/chartjs-plugin-datalabels.js"></script>
+    <script type="text/javascript" src="../libs/chartjs-plugin-doughnutlabel.min.js"></script>
     <script type="text/javascript" src="../js/app_script.js" defer></script>
 </head>
 <body>
@@ -41,19 +41,23 @@
                 </div>
             </div>
             <!-- New Expense Form -->
-            <div id="formContainer">
-                <div id="newExpenseFormContainer">
+            <div id="form_container">
+                <div id="new_expense_form_container">
                     <img src="../pic/close.png">
                     <form>
-                        <a>Kategoria</a>
-                        <select>
-                            <option>Samochod</option>
-                            <option>Dom</option>
-                            <option>Kino</option>
-                        </select>
+                        <div>
+                            <a>Kategoria</a>
+                            <select id="new_expense_form_category">
+                                <option>Samochod</option>
+                                <option>Dom</option>
+                                <option>Kino</option>
+                            </select>
+                        </div>
                         </br>
-                        <a>Wartość</a>
-                        <input type="number" step="0.01" min=0></input>
+                        <div>
+                            <a>Wartość</a>
+                            <input id="new_expense_form_value" autocomplete="off"></input>
+                        </div>
                     </form>
                 </div>
             </div>

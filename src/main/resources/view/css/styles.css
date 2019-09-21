@@ -317,7 +317,7 @@ footer
     max-height: 100%;
 }
 
-#formContainer
+#form_container
 {
     position: absolute;
     top: 0;
@@ -333,7 +333,7 @@ footer
     /* display: none; */
 }  
 
-#newExpenseFormContainer
+#new_expense_form_container
 {
     opacity: 1;
     background-color: rgba(101,191,166,1);
@@ -350,7 +350,7 @@ footer
     position: relative;
 }
 
-#newExpenseFormContainer img
+#new_expense_form_container img
 {
     position: absolute;
     top: -10px;
@@ -362,7 +362,7 @@ footer
     transition: 0.2s;
 }
 
-#newExpenseFormContainer img:hover
+#new_expense_form_container img:hover
 {
     opacity: 1;
     transition: 0.2s;

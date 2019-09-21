@@ -3,6 +3,7 @@ var ctx = null;
 var expensesData;
 var revenuesData;
 var chart;
+var validatorValue;
 
 $("document").ready(function () {
 
@@ -40,6 +41,20 @@ $("document").ready(function () {
     $(window).resize(function() {
         $("#chart_canvas").width($("#piechart_container").height() * 2);
         $("#chart_canvas").height($("#piechart_container").height() * 2);
+    });
+
+    $("#new_expense_form_value").keyup(function(e){
+        let after = $("#new_expense_form_value").val();
+        let test = "d+";
+        let regex = new RegExp("^([0-9]+(.||,||((.[0-9]{1,2})||(,[0-9]{1,2})))?)?$"); 
+        
+        if (regex.test(after)) {
+            $("#new_expense_form_value").css("background-color", "limegreen");
+            validatorValue = after;
+        } else {        
+            $("#new_expense_form_value").css("background-color", "orangered");
+            $(this).val(validatorValue);
+        }
     });
 
 
