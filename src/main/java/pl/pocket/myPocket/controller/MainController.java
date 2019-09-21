@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.pocket.myPocket.controller.repository.UserRepository;
+import pl.pocket.myPocket.model.entities.Account;
 import pl.pocket.myPocket.model.entities.ExpenseCategory;
 import pl.pocket.myPocket.model.RegistrationForm;
 import pl.pocket.myPocket.model.Session;
@@ -145,6 +146,21 @@ public class MainController {
         data[2] = labels;
 
         String json = new Gson().toJson(data);
+        System.out.println(json);
+        return json;
+    }
+
+    @RequestMapping(value = "/getaccountsnames")
+    @ResponseBody
+    public String getAccountsNames() {
+        User user = session.getUser();
+        if (user == null) return "";
+
+        List<Account> accountsList = user.getWallet().getAccountList();
+        List<String> accountsNamesList = accountsList.stream().map(a -> a.getAccountName()).collect(Collectors.toList());
+        String[] accounts = accountsNamesList.toArray(new String[accountsNamesList.size()]);
+
+        String json = new Gson().toJson(accounts);
         System.out.println(json);
         return json;
     }

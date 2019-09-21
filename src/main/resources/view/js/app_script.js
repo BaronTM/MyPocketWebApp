@@ -2,6 +2,7 @@
 var ctx = null;
 var expensesData;
 var revenuesData;
+var accountsNames;
 var chart;
 
 $("document").ready(function () {
@@ -27,7 +28,14 @@ $("document").ready(function () {
     //         expensesData = JSON.parse(response);
     //         updateChart(expensesData);
     //     }
-    // });          
+    // });   
+    
+    // $.ajax({
+    //     url: "/getaccountsnames",
+    //     success: function(response) {
+    //         accountsNames = JSON.parse(response);
+    //     }
+    // });  
 
     var str = '[[5842.0,4301.0,933.08,2684.44],["#75d89e","#ea24a3","#c4d647","#fa06ec"],["samochod","dom","kino","jedzenie"]]';
     expensesData = JSON.parse(str);
@@ -35,6 +43,8 @@ $("document").ready(function () {
 
     var str2 = '[[30000],["#75d89e"],["pko"]]';
     revenuesData = JSON.parse(str2);
+
+    accountsNames = JSON.parse('["pko", "nest"]');
 
     $("#chart_canvas").width($("#piechart_container").height() * 2);
     $("#chart_canvas").height($("#piechart_container").height() * 2);
@@ -47,7 +57,7 @@ $("document").ready(function () {
 
     addValidatorToMoneyValue("#new_expense_form_value");
     addActionsToFormElements("#new_expense_categoty");
-    addActionsToFormElements("#new_expense_account");
+    setAccountNames(accountsNames);
     
     $("#add_new_expense_button").click(function() {
         $("#new_expense_form").submit();
@@ -58,8 +68,24 @@ $("document").ready(function () {
         $("#form_container").hide(200);
     });
 
+});
 
-    // account changing action
+function setAccountNames(accountsNames) {
+    // <li class="option_button">pko</li>
+    let userAccountsListHtml = "";
+    let newExpenseAccountsList = "";
+    for (var v in accountsNames) {
+        userAccountsListHtml += "<li class='option_button'>" + accountsNames[v]  +"</li>";
+        newExpenseAccountsList += "<li>" + accountsNames[v]  +"</li>";
+    }
+
+    userAccountsListHtml += "<li class='option_button'>" + "Wszystko" +"</li>";
+    $("#user_accounts_list_container ul").html(userAccountsListHtml);
+    $("#account_button").html("Wszystko");
+
+    $("#new_expense_account .option_list").html(newExpenseAccountsList);
+    
+    addActionsToFormElements("#new_expense_account");
 
     $("#account_button").click(function() {
         var width = $(this).css("width");
@@ -76,15 +102,14 @@ $("document").ready(function () {
         $("#account_button").text(name);
         $("#user_accounts_list_container").hide(200);
     });
-});
-
+}
 
 function showNewExpenseForm(labelsArr, selectedLab) {
     $("#new_expense_category_selected").text(selectedLab);
     let optionListHtml = "";
     for (var v in labelsArr) {
         optionListHtml += "<li>" + labelsArr[v]  +"</li>";
-    }
+    };
     $("#new_expense_categoty .option_list").html(optionListHtml);
     addActionsToFormElements("#new_expense_categoty");
     $("#form_container").show(200);
