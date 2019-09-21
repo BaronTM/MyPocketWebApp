@@ -3,9 +3,10 @@ var ctx = null;
 var expensesData;
 var revenuesData;
 var chart;
-var validatorValue;
 
 $("document").ready(function () {
+
+    $("#form_container").hide();
 
     $("#log_out_but").click(function () {
         $("form[name='logout_form']").submit();
@@ -43,8 +44,57 @@ $("document").ready(function () {
         $("#chart_canvas").height($("#piechart_container").height() * 2);
     });
 
-    $("#new_expense_form_value").keydown(function(e){
-        let before = $("#new_expense_form_value").val();
+
+    addValidatorToMoneyValue("#new_expense_form_value");
+    addActionsToFormElements("#new_expense_categoty");
+    addActionsToFormElements("#new_expense_account");
+    
+    $("#add_new_expense_button").click(function() {
+        $("#new_expense_form").submit();
+        $("#form_container").hide(200);
+    });
+
+    $("#new_expense_form_container img").click(function() {
+        $("#form_container").hide(200);
+    });
+
+
+    // account changing action
+
+    $("#account_button").click(function() {
+        var width = $(this).css("width");
+        $("#user_accounts_list_container").css("width", width);
+        $("#user_accounts_list_container").show(200);
+    });
+
+    $("#user_accounts_list_container").mouseleave(function() {
+        $(this).hide(200);
+    });
+
+    $("#user_accounts_list_container li").click(function() {
+        let name = $(this).text();
+        $("#account_button").text(name);
+        $("#user_accounts_list_container").hide(200);
+    });
+});
+
+
+function showNewExpenseForm(labelsArr, selectedLab) {
+    $("#new_expense_category_selected").text(selectedLab);
+    let optionListHtml = "";
+    for (var v in labelsArr) {
+        optionListHtml += "<li>" + labelsArr[v]  +"</li>";
+    }
+    $("#new_expense_categoty .option_list").html(optionListHtml);
+    addActionsToFormElements("#new_expense_categoty");
+    $("#form_container").show(200);
+};
+
+function addValidatorToMoneyValue(selector) {
+    let input = $(selector);
+
+    input.keydown(function(e){
+        let before = input.val();
         let after = before + e.key;
         let regex = new RegExp("^([0-9]+(\\.||,||((\\.[0-9]{1,2})||(,[0-9]{1,2})))?)?$");
         // alert(e.keyCode);
@@ -56,86 +106,51 @@ $("document").ready(function () {
     });
 
 
-    $("#new_expense_form_value").keyup(function(e){
-        let after = $("#new_expense_form_value").val();
+    input.keyup(function(e){
+        let after = input.val();
         let regex = new RegExp("^([0-9]+(.||,||((.[0-9]{1,2})||(,[0-9]{1,2})))?)?$");
         if (regex.test(after) || after==null) {
-            // $("#new_expense_form_value").css("background-color", "limegreen");
         } else {
-            // $("#new_expense_form_value").css("background-color", "orangered");
         }
     });
+};
 
-    $("#new_expense_category_selected").click(function() {
+function addActionsToFormElements(selector) {
+    let mainDiv = $(selector);
+    let selectedItem = $(selector + " .selected_item");
+    let optionList = $(selector + " .option_list");
+    let listItems = $(selector + " .option_list li");
+    selectedItem.click(function() {
         var width = $(this).css("width");
-        $("#new_expense_category_list").css("width", width);
+        optionList.css("width", width);
         $(this).css({
             "border-bottom-left-radius": 0,
             "border-bottom-right-radius": 0,
             "background-color": "rgb(2, 114, 226)",
         });
-        $("#new_expense_category_list").show();
+        optionList.show();
     });
     
-    $("#new_expense_category_list").mouseleave(function() {
-        $("#new_expense_category_selected").css({
+    optionList.mouseleave(function() {
+        selectedItem.css({
             "border-bottom-left-radius": "10px",
             "border-bottom-right-radius": "10px",
             "background-color": "dodgerblue",
         });
-        $("#new_expense_category_list").hide();
+        optionList.hide();
     });
 
-    $("#new_expense_category_list li").click(function() {
+    listItems.click(function() {
         let value = $(this).text();
-        $("#new_expense_category_selected").text(value);
-        $("#new_expense_category_selected").css({
+        selectedItem.text(value);
+        selectedItem.css({
             "border-bottom-left-radius": "10px",
             "border-bottom-right-radius": "10px",
             "background-color": "dodgerblue",
         });
-        $("#new_expense_category_list").hide();
+        optionList.hide();
     });
-
-
-    
-
-
-
-});
-
-function addActionsToFormElements() {
-    $("#new_expense_category_selected").click(function() {
-        var width = $(this).css("width");
-        $("#new_expense_category_list").css("width", width);
-        $(this).css({
-            "border-bottom-left-radius": 0,
-            "border-bottom-right-radius": 0,
-            "background-color": "rgb(2, 114, 226)",
-        });
-        $("#new_expense_category_list").show();
-    });
-    
-    $("#new_expense_category_list").mouseleave(function() {
-        $("#new_expense_category_selected").css({
-            "border-bottom-left-radius": "10px",
-            "border-bottom-right-radius": "10px",
-            "background-color": "dodgerblue",
-        });
-        $("#new_expense_category_list").hide();
-    });
-
-    $("#new_expense_category_list li").click(function() {
-        let value = $(this).text();
-        $("#new_expense_category_selected").text(value);
-        $("#new_expense_category_selected").css({
-            "border-bottom-left-radius": "10px",
-            "border-bottom-right-radius": "10px",
-            "background-color": "dodgerblue",
-        });
-        $("#new_expense_category_list").hide();
-    });
-}
+};
 
 function updateChart(dataArray) {
 
@@ -189,7 +204,7 @@ function updateChart(dataArray) {
                     let index = activePoints[0]._index;
                     let label = activePoints[0]._chart.data.labels[index];
                     let value = activePoints[0]._chart.data.datasets[0].data[index];
-                    
+                    showNewExpenseForm(activePoints[0]._chart.data.labels, label);
                     // place for adding new expecse form 
 
                     // alert(label + ":  " + value);
@@ -303,5 +318,5 @@ function updateChart(dataArray) {
     });
 
 
-}
+};
 

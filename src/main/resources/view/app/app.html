@@ -32,6 +32,16 @@
                     </div>
                     <div id="account_button_container" class="button_container">
                         <div id="account_button" class="option_button">santander consument bank</div>
+                        <div id="user_accounts_list_container">
+                            <ul>
+                                <li class="option_button">pko</li>
+                                <li class="option_button">santander</li>
+                                <li class="option_button">gotowka</li>
+                                <li class="option_button">santander consument bank</li>
+                                <li class="option_button">bnp</li>
+                                <li class="option_button">nest</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div id="piechart_container">
@@ -44,12 +54,12 @@
             <div id="form_container">
                 <div id="new_expense_form_container">
                     <img src="../pic/close.png">
-                    <form id="new_expense_form">
+                    <form id="new_expense_form" name="">
                         <div>
                             <a>Konto</a>
-                            <div class="select_category">
+                            <div class="select_category" id="new_expense_account">
                                 <div class="selected_item" id="new_expense_account_selected">Santander</div>
-                                <ul class="option_list" id="new_expense_accounts_list">
+                                <ul class="option_list">
                                     <li>Nest</li>
                                     <li>Pko</li>
                                     <li>Santander</li>
@@ -58,17 +68,9 @@
                         </div>
                         <div>
                             <a>Kategoria</a>
-                            <div class="select_category">
-                                <div class="selected_item" id="new_expense_category_selected">Samochod</div>
-                                <ul class="option_list" id="new_expense_category_list">
-                                    <li>Samochod</li>
-                                    <li>Dom</li>
-                                    <li>Kino</li>
-                                    <li>Teatr</li>
-                                    <li>Jedzenie</li>
-                                    <li>Ubrania</li>
-                                    <li>Golf</li>
-                                    <li>Tenis</li>
+                            <div class="select_category" id="new_expense_categoty">
+                                <div class="selected_item" id="new_expense_category_selected"></div>
+                                <ul class="option_list">
                                 </ul>
                             </div>
                         </div>
