@@ -46,10 +46,21 @@
                     <img src="../pic/close.png">
                     <form id="new_expense_form">
                         <div>
+                            <a>Konto</a>
+                            <div class="select_category">
+                                <div class="selected_item" id="new_expense_account_selected">Santander</div>
+                                <ul class="option_list" id="new_expense_accounts_list">
+                                    <li>Nest</li>
+                                    <li>Pko</li>
+                                    <li>Santander</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
                             <a>Kategoria</a>
                             <div class="select_category">
-                                <div class="selected_item">Samochod</div>
-                                <ul class="option_list">
+                                <div class="selected_item" id="new_expense_category_selected">Samochod</div>
+                                <ul class="option_list" id="new_expense_category_list">
                                     <li>Samochod</li>
                                     <li>Dom</li>
                                     <li>Kino</li>
@@ -63,8 +74,9 @@
                         </div>
                         <div>
                             <a>Wartość</a>
-                            <input id="new_expense_form_value" autocomplete="off" placeholder="0"></input>
+                            <input class= "amount_input" id="new_expense_form_value" autocomplete="off" placeholder="0"></input>
                         </div>
+                        <div class="log_button add_new_element_button" id="add_new_expense_button">Dodaj</div>
                     </form>
                 </div>
             </div>

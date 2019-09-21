@@ -348,6 +348,8 @@ footer
     border-radius: 20px;
     padding: 50px;
     position: relative;
+    
+    perspective: 600px;
 }
 
 #new_expense_form_container img
@@ -369,6 +371,13 @@ footer
     filter: drop-shadow(0px 0px 10px red);
 }
 
+#new_expense_form
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #new_expense_form > div
 {
     padding: 15px;
@@ -384,7 +393,7 @@ footer
 {
     user-select: none;
     font-style: none;
-    font-size: 30px;
+    font-size: 40px;
     color: white;
 }
 
@@ -395,13 +404,6 @@ footer
 
 .select_category .selected_item
 {
-        /* background-color: rgb(83, 177, 150);
-        box-shadow: inset 0px 0px 2px rgba(101,191,166,1),
-                    inset 0px 0px 4px rgba(101,191,166,1),
-                    inset 0px 0px 6px rgba(101,191,166,1),
-                    inset 0px 0px 8px rgba(101,191,166,1),
-                    inset 0px 0px 10px rgba(101,191,166,1),
-                    inset 0px 0px 12px rgba(101,191,166,1); */
         background-color: dodgerblue;
         user-select: none;
         color: white;
@@ -439,18 +441,14 @@ footer
     color: white;
     display: none;
     text-align:center;
-}
-
-.select_category > .option_list.animate 
-{
-    transition: 0.3s;
-    transform: scale(1);
+    z-index: 1;
 }
 
 .select_category > .option_list li
 {
     padding-top: 5px;
     padding-bottom: 5px;
+
 }
 
 .select_category > .option_list li:hover
@@ -465,3 +463,42 @@ footer
     /* color: deeppink; */
     border-radius: inherit;
 }
+
+.amount_input
+{
+    text-align: center;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    color: white;
+    font-size: 25px;
+    /* background-color: aqua; */
+    line-height: 70px;
+    height: 50px;
+    margin-bottom: 100px;
+    /* line-height: 90px; */
+    text-shadow: 0 0 5px dodgerblue,
+                 0 0 7px dodgerblue,
+                 0 0 10px dodgerblue,
+                 0 0 12px dodgerblue,
+                 0 0 15px dodgerblue,
+                 0 0 17px dodgerblue;
+}
+
+.amount_input::placeholder
+{
+    text-shadow: 0 0 5px dodgerblue;
+    line-height: 70px;
+}
+
+.amount_input:focus
+{
+    outline: none;
+}
+
+.add_new_element_button{
+    background: linear-gradient(to top, rgba(36,68,99,1) 0%, dodgerblue 100%);
+}
+
+
+
+
