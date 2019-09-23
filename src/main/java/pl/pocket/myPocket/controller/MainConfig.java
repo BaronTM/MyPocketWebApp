@@ -12,8 +12,6 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.pocket.myPocket.controller.repository.UserRepository;
 import pl.pocket.myPocket.model.entities.*;
-import pl.pocket.myPocket.model.json.Data;
-import pl.pocket.myPocket.model.json.Datasets;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
@@ -33,6 +31,11 @@ public class MainConfig {
     @Bean
     public PasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public Gson gson() {
+      return new Gson();
     }
 
 

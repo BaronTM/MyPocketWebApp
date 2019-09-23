@@ -60,7 +60,13 @@ $("document").ready(function () {
     setAccountNames(accountsNames);
     
     $("#add_new_expense_button").click(function() {
-        $("#new_expense_form").submit();
+        let account = $("#new_expense_account_selected").text();
+        let category = $("#new_expense_category_selected").text();
+        let value = $("#new_expense_form_value").val();
+        if (accountsNames.includes(account) && expensesData[2].includes(category) && value > 0) {
+            addNewExpense(account, category, value);
+        }
+        // $("#new_expense_form").submit();
         $("#form_container").hide(200);
     });
 
@@ -69,6 +75,24 @@ $("document").ready(function () {
     });
 
 });
+
+function addNewExpense(account, category, val) {
+    var dataObj = {
+        "accountName": account,
+        "categoryName": category,
+        "value": val
+    };
+    
+    $.ajax({
+        url: "/addnewexpense",
+        type: "POST",
+        data: dataObj,
+        success: function(response) {
+            alert(response);
+        }
+    }); 
+
+};
 
 function setAccountNames(accountsNames) {
     // <li class="option_button">pko</li>

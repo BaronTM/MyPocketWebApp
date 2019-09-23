@@ -3,14 +3,17 @@ package pl.pocket.myPocket.controller;
 import com.google.gson.Gson;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.RequestScope;
 import pl.pocket.myPocket.controller.repository.UserRepository;
 import pl.pocket.myPocket.model.entities.Account;
 import pl.pocket.myPocket.model.entities.ExpenseCategory;
@@ -36,6 +39,9 @@ public class MainController {
 
     @Autowired
     public PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private Gson gson;
 
     @RequestMapping("/loggedin")
     public String loggedin(Model model) {
@@ -118,7 +124,7 @@ public class MainController {
         data[1] = colors;
         data[2] = labels;
 
-        String json = new Gson().toJson(data);
+        String json = gson.toJson(data);
         System.out.println(json);
         return json;
     }
@@ -145,7 +151,7 @@ public class MainController {
         data[1] = colors;
         data[2] = labels;
 
-        String json = new Gson().toJson(data);
+        String json = gson.toJson(data);
         System.out.println(json);
         return json;
     }
@@ -160,8 +166,20 @@ public class MainController {
         List<String> accountsNamesList = accountsList.stream().map(a -> a.getAccountName()).collect(Collectors.toList());
         String[] accounts = accountsNamesList.toArray(new String[accountsNamesList.size()]);
 
-        String json = new Gson().toJson(accounts);
+        String json = gson.toJson(accounts);
         System.out.println(json);
         return json;
+    }
+
+    @RequestMapping(value = "/addnewexpense")
+    @ResponseBody
+    public String addNewExpense(String accountName, String categoryName, String value) {
+        User user = session.getUser();
+        if (user == null) return "";
+
+        System.out.println("GSON ======================== " + value + categoryName + accountName);
+
+
+        return "done";
     }
 }
