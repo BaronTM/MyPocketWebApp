@@ -10,6 +10,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 import pl.pocket.myPocket.controller.repository.UserRepository;
 import pl.pocket.myPocket.model.entities.*;
 
@@ -23,6 +27,7 @@ import java.util.stream.Collectors;
 @Configuration
 @ComponentScan(basePackages = "pl.pocket.myPocket")
 @EntityScan(basePackages = "pl.pocket.myPocket")
+@EnableWebMvc
 public class MainConfig {
 
     @Autowired
@@ -37,7 +42,6 @@ public class MainConfig {
     public Gson gson() {
       return new Gson();
     }
-
 
     @PostConstruct
     public void init() throws Exception {

@@ -19,7 +19,6 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.8'
 	annotationProcessor 'org.projectlombok:lombok:1.18.8'
 	compile("org.springframework.boot:spring-boot-starter-security")
-	compile group: 'org.thymeleaf', name: 'thymeleaf-spring5'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
 	compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.4.4.Final'
 	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
