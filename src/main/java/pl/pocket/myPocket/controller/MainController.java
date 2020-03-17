@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import javax.servlet.*;
 
 @RestController
 public class MainController {
@@ -38,14 +39,36 @@ public class MainController {
     @Autowired
     private Gson gson;
 
+    @Autowired
+    public Filter sessionFilter() {
+        return new SessionFilter();
+    }
+
     @GetMapping("/home")
     public String getUser() {
         return "czesc i czolem";
     }
 
-    @GetMapping("/lgoin")
-    public String login() {
-        return "loggedIn";
+    @GetMapping("/kon")
+    public String login(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userName;
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails)principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        User userFromRepository = userRepository.getUserFromRepository(userName);
+        session.setUser(userFromRepository);
+        return app(model);
+    }
+
+    @RequestMapping("/app")
+    public String app(Model model) {
+        User user = session.getUser();
+        if (user == null) return "/login?error=nouser";
+        model.addAttribute("user", user);
+        return "app/app.html";
     }
 
     @GetMapping("/")

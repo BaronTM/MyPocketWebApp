@@ -94,8 +94,6 @@ public class MainConfig {
 //        System.out.println(doublePrimitives.toString());
 //        System.out.println(colorsList);
 //        System.out.println(labelsList);
-
-
     }
 
 }
