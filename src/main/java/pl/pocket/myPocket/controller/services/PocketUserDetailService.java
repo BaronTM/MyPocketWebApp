@@ -12,6 +12,6 @@ import java.util.ArrayList;
 public class PocketUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        return new User("ernest", "Ernest132", new ArrayList<>());
+        return new User("ernest", "Ernest123", new ArrayList<>());
     }
 }

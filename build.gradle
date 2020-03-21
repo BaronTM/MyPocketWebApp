@@ -23,5 +23,7 @@ dependencies {
 	compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.4.4.Final'
 	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
 	implementation 'com.google.code.gson:gson:2.8.5'
 }

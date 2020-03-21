@@ -33,10 +33,6 @@ public class MainConfig {
     @Autowired
     private UserRepository userRepository;
 
-    @Bean
-    public PasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public Gson gson() {
