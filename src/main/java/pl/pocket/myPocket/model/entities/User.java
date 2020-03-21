@@ -40,7 +40,7 @@ public class User {
 
     @Getter
     @Setter
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
     @JoinColumn(name = "id_wallet")
     private Wallet wallet;
 
