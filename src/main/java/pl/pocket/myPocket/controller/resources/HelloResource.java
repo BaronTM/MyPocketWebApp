@@ -15,9 +15,6 @@ import pl.pocket.myPocket.controller.authentication.AuthenticationResponse;
 import pl.pocket.myPocket.controller.services.PocketUserDetailService;
 import pl.pocket.myPocket.controller.utils.JwtUtil;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-
 @RestController
 @CrossOrigin(origins = "http://localhost:8000")
 public class HelloResource {
@@ -52,7 +49,6 @@ public class HelloResource {
         final UserDetails userDetails = userDetailService.loadUserByUsername(authenticationRequest.getUserName());
 
         final String jwt = jwtTokenUtil.generateToken(userDetails);
-
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Set-Cookie", "jwt=" + jwt + "; Max-Age=1800;");

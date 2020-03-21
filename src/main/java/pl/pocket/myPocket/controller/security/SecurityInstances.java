@@ -2,6 +2,7 @@ package pl.pocket.myPocket.controller.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.pocket.myPocket.controller.filters.JwtRequestFilter;
@@ -10,14 +11,9 @@ import pl.pocket.myPocket.controller.filters.JwtRequestFilter;
 public class SecurityInstances {
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+    public PasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
-
-//    @Bean
-//    public PasswordEncoder bCryptPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 
     @Bean
     public JwtRequestFilter jwtRequestFilter() {

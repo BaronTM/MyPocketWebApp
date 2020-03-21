@@ -30,10 +30,6 @@ import java.util.stream.Collectors;
 @EnableWebMvc
 public class MainConfig {
 
-    @Autowired
-    private UserRepository userRepository;
-
-
     @Bean
     public Gson gson() {
       return new Gson();
